@@ -1,46 +1,39 @@
-const express = require('express');
-const { MongoClient } = require('mongodb');
-const cors = require('cors')
+const express = require("express");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const cors = require("cors");
 
-const app = express()
+const app = express();
 
-app.use(cors())
+app.use(cors());
+
+const uri =
+  "";
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+  });
+  
+client.connect(async (err) => {
+  if(err) {
+    console.log(err);
+  }
+  console.log("Connected to MongoDB");
+  const collection = client.db("shopping").collection("men");
+  // perform actions on the collection object
+ 
+  client.close();
+});
 
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
-
-// Database Name
-const dbName = 'shopping';
-
-
-async function main() {
-  // Use connect method to connect to the server
-  await client.connect();
-  console.log('Connected successfully to server');
+app.get("/men", async (req, res) => {
   const db = client.db(dbName);
-  const collection = db.collection('men');
-  //  await collection.insertMany([{name: "man1", price: 20},{ name: "man2", price: 30}, {name: "man3", price: 40}, {name: "man4", price: 50}])
+  const results = await db.collection("men").find({}).toArray();
+  return res.jsonp(results);
+});
 
-  return 'done.';
-}
-
-main()
-  .then(console.log)
-  .catch(console.error)
-
-
-app.get('/men', async (req, res) => {
-  const db = client.db(dbName);
-  const results = await db.collection('men').find({}).toArray();
-  return res.jsonp(results)
-})
-
-
-
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`)
-})
+  console.log(`Server running on port ${port}`);
+});
