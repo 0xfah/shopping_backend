@@ -8,6 +8,7 @@ app.use(cors());
 
 const uri =
   "";
+const dbName = "shopping";
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -21,8 +22,6 @@ client.connect(async (err) => {
   console.log("Connected to MongoDB");
   const collection = client.db("shopping").collection("men");
   // perform actions on the collection object
- 
-  client.close();
 });
 
 
