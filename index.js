@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 const uri =
-  "mongodb+srv://baneen123:hL3BUiL4MdHZ3GyF@cluster0.vrefw.mongodb.net/shopping?retryWrites=true&w=majority";
+  "";
 const dbName = "shopping";
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
