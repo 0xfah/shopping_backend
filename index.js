@@ -131,6 +131,13 @@ app.get("/women-bags", async (req, res) => {
   const results = await db.collection("women-bags").find({}).toArray();
   return res.jsonp(results);
 });
+
+app.get("/men-watches", async (req, res) => {
+  const db = client.db(dbName);
+  const results = await db.collection("men-watches").find({}).toArray();
+  return res.jsonp(results);
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
